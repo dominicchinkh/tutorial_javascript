@@ -1,6 +1,6 @@
-// ==========================================
-// 1. THE BASICS: Variable as a Key Name
-// ==========================================
+//------------------------
+// Variable as a Key Name
+
 const dynamicKey = "role";
 const userValue = "Admin";
 
@@ -14,10 +14,11 @@ console.log("--- Basic Computed Property ---");
 console.log(user); // { name: 'Alex', role: 'Admin' }
 console.log(user.role); // 'Admin'
 
-// ==========================================
-// 2. RUNTIME EXPRESSIONS: String Concatenation & Math
-// ==========================================
-// You aren't limited to single variables; you can execute full expressions.
+//--------------------------------------------------
+// Runtime expressions: String Concatenation & Math
+
+// You aren't limited to single variables; you can execute full expressions
+
 const prefix = "api_";
 let idCounter = 1;
 
@@ -30,21 +31,22 @@ const apiResponse = {
 
 console.log("\n--- Runtime Expressions ---");
 console.log(apiResponse);
-/* 
-Outputs:
-{ 
-  api_version: 'v2.1', 
-  api_status: 'success', 
-  id_1: 'First Record', 
-  id_2: 'Second Record' 
-}
-*/
 
-// ==========================================
-// 3. REAL-WORLD REACT USE CASE: Dynamic Form Handlers
-// ==========================================
-// This is the most common place you'll see this in modern React. 
-// Instead of writing 3 separate functions for 3 input fields, you write ONE.
+/* 
+ *  Outputs:
+ *  { 
+ *    api_version: 'v2.1', 
+ *    api_status: 'success', 
+ *    id_1: 'First Record', 
+ *    id_2: 'Second Record' 
+ *  }
+ */
+
+//--------------------------------------------------
+// Real World React use case: Dynamic Form Handlers
+
+// This is the most common place you'll see this in modern React. Instead of writing
+// 3 separate functions for 3 input fields, you write ONE
 
 let formState = {
   username: "",
@@ -66,14 +68,15 @@ handleInputChange("email", "alex@example.com");
 
 console.log("\n--- Real World Form Handling ---");
 console.log("Updated Form State:", formState);
-/* 
-Outputs:
-{ username: 'dev_alex', email: 'alex@example.com', password: '' }
-*/
 
-// ==========================================
-// 4. ADVANCED: Using Functions & Symbols as Keys
-// ==========================================
+/* 
+ *  Outputs:
+ *  { username: 'dev_alex', email: 'alex@example.com', password: '' }
+ */
+
+//-----------------------------------
+// Using Functions & Symbols as Keys
+
 const getKeyName = () => "generated_" + Math.floor(Math.random() * 100);
 
 // You can even use unique Symbols to avoid key collisions entirely
