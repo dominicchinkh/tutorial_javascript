@@ -14,7 +14,7 @@ class PriorityQueue {
     }
 
     #right(index) {
-        return 2 * index + 1;
+        return 2 * index + 2;
     }
 
     #swap(i, j) {
