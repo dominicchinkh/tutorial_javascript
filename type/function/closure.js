@@ -17,7 +17,6 @@ const sayHola = makeGreeting("Hola");
 console.log(sayHello("Alice")); // "Hello, Alice!"
 console.log(sayHola("Bob"));    // "Hola, Bob!"
 
-
 // ==========================================
 // 2. Private Variables & Data Encapsulation
 // ==========================================
@@ -50,7 +49,6 @@ console.log("After decrement:", counter.decrement()); // 10
 // Direct access is impossible:
 console.log("Direct count access:", counter.count); // undefined
 
-
 // ==========================================
 // 3. Shared Lexical Environment
 // ==========================================
@@ -74,7 +72,6 @@ const pair = makeCounterPair();
 pair.add(5);
 pair.add(10);
 console.log("Shared Value:", pair.inspect()); // 15
-
 
 // ==========================================
 // 4. Closures in Loops (Classic Pitfall & Fix)
@@ -106,7 +103,6 @@ function createFunctionsWithLet() {
 const letFuncs = createFunctionsWithLet();
 console.log(letFuncs[0]()); // "let loop value: 0"
 console.log(letFuncs[1]()); // "let loop value: 1"
-
 
 // ==========================================
 // 5. Function Factory / Currying
