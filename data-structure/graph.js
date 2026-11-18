@@ -8,12 +8,12 @@ class Graph {
     }
 
     addVertex(vertex) {
-        if (!this.#adjacencyList.has(vertex)) {
-            this.#adjacencyList.set(vertex, []);
-            return true;
+        if (this.#adjacencyList.has(vertex)) {
+            return false;
         }
 
-        return false;
+        this.#adjacencyList.set(vertex, []);
+        return true;
     }
 
     addEdge(vertex1, vertex2) {
@@ -52,7 +52,7 @@ class Graph {
                     vertex2,
                     this.#adjacencyList.get(vertex2).filter(v => v !== vertex1)
                 )
-            }   
+            }
         }
     }
 
@@ -104,6 +104,7 @@ class Graph {
 
         const visited = new Set();
         const result = [];
+
         const adjacencyList = this.#adjacencyList;
 
         function dfs(vertex) {
@@ -123,7 +124,7 @@ class Graph {
 
     print() {
         for (const [vertex, neighbors] of this.#adjacencyList.entries()) {
-            console.log(`${vertex} -> ${neighbors.join(", ")}`)
+            console.log(`${vertex} -> ${neighbors.join(", ")}`);
         }
     }
 }
