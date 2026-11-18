@@ -1,15 +1,15 @@
 class Graph {
-    #adjacentList;
+    #adjacencyList;
     #isDirected;
 
-    constructor(isDirected) {
-        this.#adjacentList = new Map();
+    constructor(isDirected = false) {
+        this.#adjacencyList = new Map();
         this.#isDirected = isDirected;
     }
 
     addVertex(vertex) {
-        if (!this.#adjacentList.has(vertex)) {
-            this.#adjacentList.set(vertex, []);
+        if (!this.#adjacencyList.has(vertex)) {
+            this.#adjacencyList.set(vertex, []);
             return true;
         }
 
@@ -17,21 +17,21 @@ class Graph {
     }
 
     addEdge(vertex1, vertex2) {
-        if (!this.#adjacentList.has(vertex1)) {
+        if (!this.#adjacencyList.has(vertex1)) {
             this.addVertex(vertex1);
         }
 
-        if (!this.#adjacentList.has(vertex2)) {
+        if (!this.#adjacencyList.has(vertex2)) {
             this.addVertex(vertex2);
         }
 
-        const list1 = this.#adjacentList.get(vertex1);
+        const list1 = this.#adjacencyList.get(vertex1);
         if (!list1.includes(vertex2)) {
             list1.push(vertex2);
         }
 
         if (!this.#isDirected) {
-            const list2 = this.#adjacentList.get(vertex2);
+            const list2 = this.#adjacencyList.get(vertex2);
             if (!list2.includes(vertex1)) {
                 list2.push(vertex1);
             }
@@ -39,25 +39,40 @@ class Graph {
     }
 
     removeEdge(vertex1, vertex2) {
-        if (this.#adjacentList.has(vertex1)) {
-            this.#adjacentList.set(
+        if (this.#adjacencyList.has(vertex1)) {
+            this.#adjacencyList.set(
                 vertex1,
-                this.#adjacentList.get(vertex1).filter(v => v !== vertex2)
+                this.#adjacencyList.get(vertex1).filter(v => v !== vertex2)
             )
         }
 
         if (!this.#isDirected) {
-            if (this.#adjacentList.has(vertex2)) {
-                this.#adjacentList.set(
+            if (this.#adjacencyList.has(vertex2)) {
+                this.#adjacencyList.set(
                     vertex2,
-                    this.#adjacentList.get(vertex2).filter(v => v !== vertex1)
+                    this.#adjacencyList.get(vertex2).filter(v => v !== vertex1)
                 )
-            }
+            }   
         }
     }
 
+    removeVertex(vertex) {
+        if (!this.#adjacencyList.has(vertex)) {
+            return false;
+        }
+
+        for (const [v, neighbors] of this.#adjacencyList.entries()) {
+            if (neighbors.includes(vertex)) {
+                this.removeEdge(v, vertex);
+            }
+        }
+
+        this.#adjacencyList.delete(vertex);
+        return true;
+    }
+
     breadthFirstSearch(startVertex) {
-        if (!this.#adjacentList.has(startVertex)) {
+        if (!this.#adjacencyList.has(startVertex)) {
             return [];
         }
 
@@ -71,7 +86,7 @@ class Graph {
             const current = queue.shift();
             result.push(current);
 
-            for (const neighbor of this.#adjacentList.get(current)) {
+            for (const neighbor of this.#adjacencyList.get(current)) {
                 if (!visited.has(neighbor)) {
                     visited.add(neighbor);
                     queue.push(neighbor);
@@ -83,19 +98,19 @@ class Graph {
     }
 
     depthFirstSearch(startVertex) {
-        if (!this.#adjacentList.has(startVertex)) {
+        if (!this.#adjacencyList.has(startVertex)) {
             return [];
         }
 
         const visited = new Set();
         const result = [];
-        const adjacentList = this.#adjacentList
+        const adjacencyList = this.#adjacencyList;
 
         function dfs(vertex) {
             visited.add(vertex);
             result.push(vertex);
 
-            for (const neighbor of adjacentList.get(vertex)) {
+            for (const neighbor of adjacencyList.get(vertex)) {
                 if (!visited.has(neighbor)) {
                     dfs(neighbor);
                 }
@@ -107,8 +122,8 @@ class Graph {
     }
 
     print() {
-        for (const [vertex, neighbors] of this.#adjacentList.entries()) {
-            console.log(`${vertex} -> ${neighbors.join(", ")}`);
+        for (const [vertex, neighbors] of this.#adjacencyList.entries()) {
+            console.log(`${vertex} -> ${neighbors.join(", ")}`)
         }
     }
 }
@@ -123,7 +138,8 @@ graph.addEdge("D", "E");
 graph.addEdge("D", "F");
 graph.addEdge("E", "F");
 
-graph.removeEdge("D", "E");
+// graph.removeEdge("D", "E");
+// graph.removeVertex("C");
 
 graph.print();
 
